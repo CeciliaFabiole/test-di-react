@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
+import { useFetch } from "./useFetch"
 
 export function MealDetails(){
-    const [details, setDetails] = useState()
-
     const {id} = useParams()
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    const {handleFetch, details}= useFetch(url)
 
-    const fetching = async () => {
-        const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-        const json = await res.json()
-        setDetails(...json.meals)
-    }
+    
     useEffect(()=>{
-        fetching()
+        handleFetch()
     })
 
     return(

@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useFetch } from "./useFetch";
 
 export function Home(){
     const [input, setInput] = useState('')
-    const [lista, setLista] = useState([])
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`
+    const {lista, handleFetch} = useFetch(url)
 
-    const handleFetch = async() => {
-        const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`)
-        const data = await res.json()
-        setLista([...data.meals])
-    }
+    
 
     return(
         <div>
